@@ -1,0 +1,24 @@
+import requests
+import csv
+
+username='hupili'
+reponame='python-for-data-and-media-communication-gitbook'
+
+query_url='https://api.github.com/repos/{0}/{1}/stargazers'.format(username,reponame)
+response=requests.get(query_url)
+data=response.json()
+data
+
+with open('ABC.csv','w',newline='') as f:
+    writer = csv.writer(f)
+    header = ['username','id','html_url']
+    writer.writerow(header)
+    k=len(data)
+    
+    for i in range(0,k):
+        writer.writerow([data[i]['login'],data[i]['id'],data[i]['html_url']])
+
+with open('ABC.csv','r',newline='') as f:
+    rows = csv.reader(f) # read CSV
+    for row in rows: #loop every row
+        print(row)
